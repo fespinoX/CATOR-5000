@@ -16,19 +16,69 @@
 	<!-- Fonts -->
 	<link rel="stylesheet" href="fonts/stylesheet.css" type="text/css" />
 
-	<!-- Icons -->
-	<link rel="stylesheet" href="icons/css/mmicons.css" type="text/css" />
-
   	<!-- Compiled CSS -->
   	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<!-- JQuery -->
+  	<script src="vendor/jquery/jquery-3.4.1.min.js"></script>
   
 
 </head>
 
-<body onload="showLoader()">
+<body>
 	<main>
 	
-	<p>hello world!</p>
+	<h1>Cator 5000</h1>
+
+	<p>Total catos: <span id="js-catos-qty">X</span></p>
+
+	<ul>
+		<li>
+			<div>
+				<img src="" class="cato-image">
+				<h2 class="cato-name">Name</h2>
+				<p class="cato-desc">Cato info</p>
+				<button>edit</button>
+				<button>delete</button>
+			</div>
+		</li>
+	</ul>
+
+	<button id="js-new-cato">new cato</button>
+
+
+	<form  enctype="multipart/form-data">
+		<ul>
+			<li><span>Name:</span> <input type="text"></li>
+			<li><span>Description:</span> <textarea name="" id="" cols="30" rows="10"></textarea> </li>
+		</ul>
+
+		
+
+	    <label for="image-upload">Select an image:</label><br/>
+	    <input name="image-upload" type="file" class="file-input" />
+	</form>
+	
+
+	<label>This is the Image:</label><br/>
+<div class="image-container">
+    <img src="" id="image-preview" />
+</div>
+<br/>
+<br/>
+
+<label>This is the localstorage output:</label><br/>
+<div class="localstorage-output"></div>
+<br/>
+<br/>
+
+<label>This is the Canvas:</label><br/>
+<canvas id="canvas-element"></canvas>
+
+
 
 	</main>
+
+
+	<script src="js/scripts.js"></script>
 </body>
