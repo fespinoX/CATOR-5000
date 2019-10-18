@@ -32,16 +32,7 @@
 
 	<p>Total catos: <span id="js-catos-qty">X</span></p>
 
-	<ul>
-		<li>
-			<div>
-				<img src="" class="cato-image">
-				<h2 class="cato-name">Name</h2>
-				<p class="cato-desc">Cato info</p>
-				<button>edit</button>
-				<button>delete</button>
-			</div>
-		</li>
+	<ul id="js-catos-list">
 	</ul>
 
 	<button id="js-new-cato">new cato</button>
@@ -49,28 +40,23 @@
 
 	<form  enctype="multipart/form-data">
 		<ul>
-			<li><span>Name:</span> <input type="text"></li>
-			<li><span>Description:</span> <textarea name="" id="" cols="30" rows="10"></textarea> </li>
+			<li>
+				<label for="image-upload">Select an image:</label><br/>
+	    		<input name="image-upload" type="file" class="file-input" />
+	    			<label>This is the Image:</label><br/>
+					<div class="image-container">
+					    <img src="" id="image-preview" />
+					</div>
+			</li>
+			<li><span>Name:</span> <input type="text" class="js-newcato-name"></li>
+			<li><span>Description:</span> <textarea name="" id="" cols="30" rows="10" class="js-newcato-desc"></textarea> </li>
 		</ul>
-
-		
-
-	    <label for="image-upload">Select an image:</label><br/>
-	    <input name="image-upload" type="file" class="file-input" />
+	    
 	</form>
-	
 
-	<label>This is the Image:</label><br/>
-<div class="image-container">
-    <img src="" id="image-preview" />
-</div>
-<br/>
-<br/>
+	<button id="js-save-cato">Save Cato</button>
 
-<label>This is the localstorage output:</label><br/>
-<div class="localstorage-output"></div>
-<br/>
-<br/>
+
 
 <label>This is the Canvas:</label><br/>
 <canvas id="canvas-element"></canvas>

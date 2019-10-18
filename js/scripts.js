@@ -1,24 +1,26 @@
+
 // Initial catos object
 
 var catos = [
     	{
     		name: 'Zelda',
     		description: 'A supercute alien cat',
-    		image: 'img/base-catos/zelda.jpg'
+    		image: 'img/base-catos/zelda.jpg',
+    		order: 0
     	},
       	{
       		name: 'Minerva',
       		description: 'The office favourite one.',
-      		image: 'img/base-catos/minerva.jpg'
+      		image: 'img/base-catos/minerva.jpg',
+      		order: 1
       	},
       	{
       		name: 'Mariah',
       		description: 'The one that purrs all the time.',
-      		image: 'img/base-catos/mariah.jpg'
+      		image: 'img/base-catos/mariah.jpg',
+      		order: 2
       	}
-    ]
-
-
+    ];
 
 
 
@@ -49,6 +51,15 @@ if (localStorage.getItem('catosData')) {
 
 /* DOM functions */
 
+// Variable declarations
+
+const catosList = $('#js-catos-list');
+
+
+
+
+
+
 
 
 
@@ -62,7 +73,6 @@ function storeTheImage() {
     // Get canvas contents as a data URL
     let imgAsDataURL = imgCanvas.toDataURL("image/png");
 
-    console.log(imgAsDataURL);
 	
     // Save image into localStorage
     try {
@@ -94,29 +104,11 @@ function readURL(input) {
 
 
 
+function emptyCatoList() {
 
-
-
-
-function getCatos() {
-
-
-
-
-
-
-// Loop through the object and print the count for each fruit
-for (var key in catosData) {
-  console.log('Key: ' + key + ' Name: ' + catosData[key].name + ' Desc: ' + catosData[key].description + ' Img: ' + catosData[key].image );
-}
-
-
-
-
+	$('#js-catos-list').empty();
 
 }
-
-
 
 
 
@@ -125,13 +117,122 @@ function showCatos() {
 
 
 
-	
+	emptyCatoList();
 
+
+	catosData = JSON.parse(localStorage.getItem('catosData'));
+
+
+	
+	$.each(catosData, function(i)
+	{
+	    let li = $('<li/>')
+	        //.addClass('ui-menu-item')
+	        .appendTo(catosList);
+	    let name = $('<p/>')
+	        .addClass('cato-name')
+	        .text(catosData[i].name)
+	        .appendTo(li);
+		let description = $('<p/>')
+	        .addClass('cato-desc')
+	        .text(catosData[i].description)
+	        .appendTo(li);
+	    let image = $('<img/>')
+	        .addClass('cato-photo')
+	        .attr('src', catosData[i].image)
+	        .appendTo(li);
+	    let btndelete = $('<button/>')
+	    	.addClass('js-cato-delete')
+	    	.attr('id', 'catodelete-' + i)
+	        .text("Delete Cato")
+	        .appendTo(li);
+	    let btnedit = $('<button/>')
+	    	.addClass('js-cato-edit')
+	        .attr('id', 'catoedit-' + i)
+	        .text("Edit Cato")
+	        .appendTo(li);
+	});
+
+}
+
+
+
+function emptyCatoForm() {
+
+	$('.file-input').val('');
+	$('.js-newcato-name').val('');
+	$('.js-newcato-desc').val('');
+	$('#image-preview').attr('src', '');
+
+
+}
+
+
+
+
+
+
+function saveCato() {
+
+
+	let newCato = {
+
+		name: $('.js-newcato-name').val(),
+		description: $('.js-newcato-desc').val(),
+		image: $('#image-preview').attr('src')
+		//order: 1
+
+
+	};
+
+
+	catosData = JSON.parse(localStorage.getItem('catosData'));
+
+	catosData.push(newCato);
+
+
+
+
+	localStorage.setItem('catosData', JSON.stringify(catosData));
+
+    catosData = JSON.parse(localStorage.getItem('catosData'));
+
+
+
+    emptyCatoForm();
+
+    showCatos();
 
 
 
 }
 
+
+
+function deleteCato(key) {
+
+
+
+
+
+
+
+
+	catosNewData = JSON.parse(localStorage.getItem('catosData'));
+
+
+	catosNewData.splice(key, 1);
+
+    localStorage.removeItem('catosData');
+    localStorage.setItem('catosData', JSON.stringify(catosNewData));
+
+
+    showCatos();
+
+
+
+
+}
 
 
 
@@ -143,18 +244,41 @@ $( document ).ready(function() {
 
 
 	
+
+
+// Button listeners
+
+$( "#js-save-cato" ).on("click", function() {
+      saveCato();
+});
+
+
+
+
+
+
+$(document).on('click', '.js-cato-delete', function () {
+    // your function here
+
+
+    let arrayPos =  this.id.split('-')[1];
+
+
+    deleteCato(arrayPos);
+
+});
+
+
+
+
+
+
+	showCatos();
+
+
 	$('.file-input').on('change', function() {
 	    readURL(this);
 	});
-
-
-
-
-//const values = Object.values(catos)
-//console.log(values) // [28, 17, 54]
-
-	getCatos();
-	showCatos();
 
 
 
