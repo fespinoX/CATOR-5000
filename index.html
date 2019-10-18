@@ -32,34 +32,46 @@
 
 	<p>Total catos: <span id="js-catos-qty">X</span></p>
 
-	<ul id="js-catos-list">
+	<ul id="js-catos-list" class="catos-list">
 	</ul>
 
 	<button id="js-new-cato">new cato</button>
 
+	<ul>
+		
+		<li>
+			
+			<form class="input-group" id="img2b64">
+			    <input id="inputFileToLoad" type="file" />
+			</form>
+			
+			<div class="output">
+			    <img id="js-image-preview">
+			</div>
 
-	<form  enctype="multipart/form-data">
-		<ul>
-			<li>
-				<label for="image-upload">Select an image:</label><br/>
-	    		<input name="image-upload" type="file" class="file-input" />
-	    			<label>This is the Image:</label><br/>
-					<div class="image-container">
-					    <img src="" id="image-preview" />
-					</div>
-			</li>
-			<li><span>Name:</span> <input type="text" class="js-newcato-name"></li>
-			<li><span>Description:</span> <textarea name="" id="" cols="30" rows="10" class="js-newcato-desc"></textarea> </li>
-		</ul>
-	    
-	</form>
+
+		</li>
+
+
+		<li>
+			
+
+			
+
+
+
+		</li>
+
+		<li><span>Name:</span> <input type="text" class="js-newcato-name"></li>
+			
+		<li><span>Description:</span> <textarea name="" id="" cols="30" rows="10" class="js-newcato-desc"></textarea> </li>
+	
+
+	</ul>
+
+	
 
 	<button id="js-save-cato">Save Cato</button>
-
-
-
-<label>This is the Canvas:</label><br/>
-<canvas id="canvas-element"></canvas>
 
 
 
