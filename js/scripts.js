@@ -112,6 +112,17 @@ function emptyCatoList() {
 
 
 
+function getCatosQty() {
+
+
+	let catosQty = $( catosData ).length;
+
+	$('#js-catos-qty').html(catosQty);
+
+
+}
+
+
 
 function showCatos() {
 
@@ -123,7 +134,7 @@ function showCatos() {
 	catosData = JSON.parse(localStorage.getItem('catosData'));
 
 
-	
+
 	$.each(catosData, function(i)
 	{
 	    let li = $('<li/>')
@@ -153,6 +164,13 @@ function showCatos() {
 	        .appendTo(li);
 	});
 
+
+
+
+	getCatosQty();
+
+
+	
 }
 
 
