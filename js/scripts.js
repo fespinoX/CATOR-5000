@@ -370,6 +370,34 @@ $(document).on('click', '.js-save-this-cato', function () {
 
 
 
+
+
+
+
+
+
+
+	function reassignOrder() {
+
+		$(catosData).each(function(key){
+
+			catosData[key].order = key;
+
+        });
+
+
+
+
+
+	}
+
+
+
+
+
+
+
+
 	function reSortCatos() {
 
 		//let newOrder = $(".cato-key").text();
@@ -382,12 +410,33 @@ $(document).on('click', '.js-save-this-cato', function () {
 	    $("#js-catos-list").find(".cato-key").each(function(){
 	        if(($.trim($(this).text()).length>0)){
 	         newOrder.push(parseInt($(this).text()));
-	        }
+        }
+
+
+        reassignOrder();
 
 
 	    });
 
-	    console.log(newOrder);
+
+
+
+
+		var sortedCatosData = _.sortBy(catosData, function(obj){ 
+		    return _.indexOf(newOrder, obj.order);
+		});
+
+
+
+
+
+	    localStorage.setItem('catosData', JSON.stringify(sortedCatosData));
+    	catosData = JSON.parse(localStorage.getItem('catosData'));
+
+
+    	showCatos();
+
+	    
 
 	}
 
