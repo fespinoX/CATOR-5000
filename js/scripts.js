@@ -13,13 +13,13 @@ var catos = [
       		name: 'Minerva',
       		description: 'The office favourite one.',
       		image: 'img/base-catos/minerva.jpg',
-      		order: 1
+    		order: 1
       	},
       	{
       		name: 'Mariah',
       		description: 'The one that purrs all the time.',
       		image: 'img/base-catos/mariah.jpg',
-      		order: 2
+    		order: 2
       	}
     ];
 
@@ -104,6 +104,10 @@ function showCatos() {
 	{
 	    let li = $('<li/>')
 	        .appendTo($('#js-catos-list'));
+		let key = $('<span/>')
+	        .addClass('cato-key')
+	        .text(i)
+	        .appendTo(li);	        
 	    let name = $('<p/>')
 	        .addClass('cato-name')
 	        .text(catosData[i].name)
@@ -157,8 +161,8 @@ function saveNewCato() {
 
 		name: $('.js-newcato-name').val(),
 		description: $('.js-newcato-desc').val(),
-		image: $('#js-image-preview').attr('src')
-		//order: 1
+		image: $('#js-image-preview').attr('src'),
+		order: $( catosData ).length
 
 	};
 
@@ -361,6 +365,60 @@ $(document).on('click', '.js-save-this-cato', function () {
 	$('.file-input').on('change', function() {
 	    readURL(this);
 	});
+
+
+
+
+
+	function reSortCatos() {
+
+		//let newOrder = $(".cato-key").text();
+
+		//console.log(newOrder);
+
+
+
+		var newOrder = [];
+	    $("#js-catos-list").find(".cato-key").each(function(){
+	        if(($.trim($(this).text()).length>0)){
+	         newOrder.push(parseInt($(this).text()));
+	        }
+
+
+	    });
+
+	    console.log(newOrder);
+
+	}
+
+
+
+
+
+
+
+$( function() {
+    $( "#js-catos-list" ).sortable();
+    $( "#js-catos-list" ).disableSelection();
+  } );
+
+
+
+$('#js-catos-list').sortable({
+    axis: 'y',
+    update: function (event, ui) {
+        
+        reSortCatos();
+    }
+});
+
+
+
+
+
+
+
+
 
 
 

@@ -85,6 +85,11 @@ select:-webkit-autofill:focus {
 /* 2.1 Colors
 ------------------------
 */
+/*
+#D1499A magenta
+#FED402 amarillo
+#F15532 naranja
+*/
 /* 2.1 Fonts
 ------------------------
 */
@@ -92,4 +97,7 @@ select:-webkit-autofill:focus {
    3.0 General
    ===================== */
 p {
-  color: #FF0000; }
+  color: #D1499A; }
+
+.catos-list li {
+  margin: 50px 0; }

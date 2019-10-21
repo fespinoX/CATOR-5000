@@ -101,14 +101,14 @@ select:-webkit-autofill:focus {
 */   
 
 $badass: #bada55;
-$red: #FF0000;
+$magenta: #D1499A;
 $white: #000;
 
-
+/*
 #D1499A magenta
 #FED402 amarillo
 #F15532 naranja
-
+*/
 
 /* 2.1 Fonts
 ------------------------
@@ -121,5 +121,12 @@ $white: #000;
 
 
 p {
-	color: $red;
+	color: $magenta;
+}
+
+
+.catos-list {
+	li {
+		margin: 50px 0;
+	}
 }
