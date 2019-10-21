@@ -239,30 +239,26 @@ function editCatoForm(key) {
 
 
 
-// Encodes edited image as base64
+	// Encodes edited image as base64
 
-function editImageTo64(cb) {
+	function editImageTo64(cb) {
 
-    return function(){
-    	console.log(this);
-        let editfile = this.files[0];
-        let editreader  = new FileReader();
-        editreader.onloadend = function () {
-            cb(editreader.result);
-        }
-        editreader.readAsDataURL(editfile);
-    }
-}
+	    return function(){
+	    	console.log(this);
+	        let editfile = this.files[0];
+	        let editreader  = new FileReader();
+	        editreader.onloadend = function () {
+	            cb(editreader.result);
+	        }
+	        editreader.readAsDataURL(editfile);
+	    }
+	}
 
-$('#editFileToLoad').change(editImageTo64(function(editBase64Img){
+	$('#editFileToLoad').change(editImageTo64(function(editBase64Img){
 
-	console.log("asnlfslkdjf");
-    $('#js-image-edit-preview')
-        .attr('src', editBase64Img);
-}));
-
-
-
+	    $('#js-image-edit-preview')
+	        .attr('src', editBase64Img);
+	}));
 
 }
 
@@ -286,7 +282,7 @@ function saveThisCato(key) {
 
 	catosData[key].name = $('.js-cato-edit-name').val();
 	catosData[key].description = $('.js-cato-edit-desc').val();
-	catosData[key].image = $('.js-image-edit-preview').attr('src');
+	catosData[key].image = $('#js-image-edit-preview').attr('src');
 
 
 
@@ -295,45 +291,6 @@ function saveThisCato(key) {
     catosData = JSON.parse(localStorage.getItem('catosData'));
 
     showCatos();
-
-/*
-	// deleteCato(key);
-
-	let thisCato = {
-
-		name: $('.js-cato-edit-name').val(),
-		description: $('.js-cato-edit-desc').val(),
-		image: $('#image-preview').attr('src')
-		//order: 1
-
-
-	};
-
-
-	catosData[key].name = $('.js-cato-edit-name').val(),
-
-	//catosData = JSON.parse(localStorage.getItem('catosData'));
-
-	//catosData.push(newCato);
-
-
-
-
-	localStorage.setItem('catosData', JSON.stringify(catosData));
-
-    catosData = JSON.parse(localStorage.getItem('catosData'));
-
-
-
-//    saveCato(thisCato);
-
-
-    emptyCatoForm();
-
-    showCatos();
-
-
-*/
 
 
 }
