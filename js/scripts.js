@@ -71,12 +71,29 @@ $('#inputFileToLoad').change(imageTo64(function(base64Img){
 
 
 
+// Checks if we ran out of catos
+
+function checkIfNoCatos(catosQty) {
+
+	if (catosQty < 1) {
+		$('#js-no-catos-msg').removeClass('d-none');
+	} else {
+		$('#js-no-catos-msg').addClass('d-none');
+	}
+
+}
+
+
 
 // Shows the amount of catos
 
 function getCatosQty() {
 
-	$('#js-catos-qty').html($( catosData ).length);
+	let catosQty = $( catosData ).length;
+
+	$('#js-catos-qty').html(catosQty);
+
+	checkIfNoCatos(catosQty);
 
 }
 
@@ -150,46 +167,84 @@ function emptyCatoForm() {
 }
 
 
+
+
+
+// Confirm before action
+
+function confirmCatoAction ( message ) {
+
+	let confirmAction = confirm( message );
+
+    if (confirmAction) {
+
+      return true;
+
+    } 
+
+ }
+
+
 // Saves cato
 
 function saveNewCato() {
 
 
-	// gets new cato details
+	if (confirmCatoAction('Are you sure you want to save this new cato?')) {
 
-	let newCato = {
+		// gets new cato details
 
-		name: $('.js-newcato-name').val(),
-		description: $('.js-newcato-desc').val(),
-		image: $('#js-image-preview').attr('src'),
-		order: $( catosData ).length
+		let newCato = {
 
-	};
+			name: $('.js-newcato-name').val(),
+			description: $('.js-newcato-desc').val(),
+			image: $('#js-image-preview').attr('src'),
+			order: $( catosData ).length
 
-	// adds new cato to the list and saves it to the LS
+		};
 
-	catosData.push(newCato);
-	localStorage.setItem('catosData', JSON.stringify(catosData));
-    catosData = JSON.parse(localStorage.getItem('catosData'));
+		// adds new cato to the list and saves it to the LS
 
-    emptyCatoForm();
-    showCatos();
+		catosData.push(newCato);
+		localStorage.setItem('catosData', JSON.stringify(catosData));
+	    catosData = JSON.parse(localStorage.getItem('catosData'));
+
+	    emptyCatoForm();
+	    showCatos();
+
+    } else {
+
+		console.log("nothing happened");
+
+	}
 
 }
-
 
 // Deletes cato
 
 function deleteCato(key) {
 
-	catosNewData = JSON.parse(localStorage.getItem('catosData'));
-	catosNewData.splice(key, 1);
 
-    localStorage.removeItem('catosData');
-    localStorage.setItem('catosData', JSON.stringify(catosNewData));
-    catosData = JSON.parse(localStorage.getItem('catosData'));
+	if (confirmCatoAction('Are you sure you want to delete this cute cato?')) {
 
-    showCatos();
+		catosNewData = JSON.parse(localStorage.getItem('catosData'));
+		catosNewData.splice(key, 1);
+
+	    localStorage.removeItem('catosData');
+	    localStorage.setItem('catosData', JSON.stringify(catosNewData));
+	    catosData = JSON.parse(localStorage.getItem('catosData'));
+
+	    showCatos();
+
+	} else {
+
+		console.log("nothing happened");
+
+	}
+
+
+	
+
 
 }
 
@@ -286,7 +341,12 @@ function saveThisCato(key) {
 
 	catosData[key].name = $('.js-cato-edit-name').val();
 	catosData[key].description = $('.js-cato-edit-desc').val();
-	catosData[key].image = $('#js-image-edit-preview').attr('src');
+
+	if ($('#js-image-edit-preview').attr('src') != undefined) {
+		catosData[key].image = $('#js-image-edit-preview').attr('src');
+	}
+
+	
 
 
 
@@ -347,8 +407,15 @@ $(document).on('click', '.js-cato-edit', function () {
 
 $(document).on('click', '.js-save-this-cato', function () {
 
-	let arrayPos =  this.id.split('-')[1];
-    saveThisCato(arrayPos);
+
+	if (confirmCatoAction('Are you sure you want to edit this cato?')) {
+
+		let arrayPos =  this.id.split('-')[1];
+	    saveThisCato(arrayPos);
+
+	} else {
+		console.log("nothin happened");
+	}
 
 });
 

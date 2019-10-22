@@ -96,6 +96,9 @@ select:-webkit-autofill:focus {
 /* =====================
    3.0 General
    ===================== */
+.d-none {
+  display: none; }
+
 p {
   color: #D1499A; }
 
