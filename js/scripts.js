@@ -45,32 +45,6 @@ if (localStorage.getItem('catosData')) {
 /* Functions */
 
 
-
-
-// Encode image as base64
-
-function imageTo64(cb) {
-    return function(){
-        let file = this.files[0];
-        let reader  = new FileReader();
-        reader.onloadend = function () {
-            cb(reader.result);
-        }
-        reader.readAsDataURL(file);
-    }
-}
-
-$('#inputFileToLoad').change(imageTo64(function(base64Img){
-    $('.output')
-  		.find('img')
-        .attr('src', base64Img);
-}));
-
-
-
-
-
-
 // Checks if we ran out of catos
 
 function checkIfNoCatos(catosQty) {
@@ -82,7 +56,6 @@ function checkIfNoCatos(catosQty) {
 	}
 
 }
-
 
 
 // Shows the amount of catos
@@ -163,11 +136,7 @@ function emptyCatoForm() {
 	$('.js-newcato-desc').val('');
 	$('#js-image-preview').attr('src', '');
 
-
 }
-
-
-
 
 
 // Confirm before action
@@ -185,32 +154,103 @@ function confirmCatoAction ( message ) {
  }
 
 
+function newCatValidation(name, desc, img) {
+	
+	if (catoNameValidation(name) ) {
+		return true;
+	} else {
+		
+	}
+
+}
+
+ // Validate name
+
+ function catoNameValidation(name) {
+
+ 	if(name.length > 0) {
+
+ 		console.log("name ok");
+ 		return true;
+
+ 	} else {
+
+ 		console.log("name too short");
+
+ 	}
+
+ }
+
+
+// Encode image as base64
+
+function imageTo64(cb) {
+    return function(){
+        let file = this.files[0];
+        let reader  = new FileReader();
+        reader.onloadend = function () {
+            cb(reader.result);
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
+
+// Encodes edited image as base64
+
+function editImageTo64(cb) {
+
+    return function(){
+        let editfile = this.files[0];
+        let editreader  = new FileReader();
+        editreader.onloadend = function () {
+            cb(editreader.result);
+        }
+        editreader.readAsDataURL(editfile);
+    }
+}
+
+
 // Saves cato
 
 function saveNewCato() {
 
+	let catoName = $('.js-newcato-name').val();
+	let catoDesc = $('.js-newcato-desc').val();
+	let catoImg = $('#js-image-preview').attr('src');
 
-	if (confirmCatoAction('Are you sure you want to save this new cato?')) {
+
+	if (newCatValidation(catoName, catoDesc, catoImg)) {
 
 		// gets new cato details
 
-		let newCato = {
+		
 
-			name: $('.js-newcato-name').val(),
-			description: $('.js-newcato-desc').val(),
-			image: $('#js-image-preview').attr('src'),
-			order: $( catosData ).length
+		if (confirmCatoAction('Are you sure you want to save this new cato?')) {
+			let newCato = {
 
-		};
+				name: catoName,
+				description: catoDesc,
+				image: catoImg,
+				order: $( catosData ).length
 
-		// adds new cato to the list and saves it to the LS
+			};
 
-		catosData.push(newCato);
-		localStorage.setItem('catosData', JSON.stringify(catosData));
-	    catosData = JSON.parse(localStorage.getItem('catosData'));
+			// adds new cato to the list and saves it to the LS
 
-	    emptyCatoForm();
-	    showCatos();
+			catosData.push(newCato);
+			localStorage.setItem('catosData', JSON.stringify(catosData));
+		    catosData = JSON.parse(localStorage.getItem('catosData'));
+
+		    emptyCatoForm();
+		    showCatos();
+		} else {
+
+			console.log("failed validation");
+
+		}
+
+		
 
     } else {
 
@@ -241,10 +281,6 @@ function deleteCato(key) {
 		console.log("nothing happened");
 
 	}
-
-
-	
-
 
 }
 
@@ -297,22 +333,6 @@ function editCatoForm(key) {
     	.appendTo(editcontainer);
 
 
-
-	// Encodes edited image as base64
-
-	function editImageTo64(cb) {
-
-	    return function(){
-	    	console.log(this);
-	        let editfile = this.files[0];
-	        let editreader  = new FileReader();
-	        editreader.onloadend = function () {
-	            cb(editreader.result);
-	        }
-	        editreader.readAsDataURL(editfile);
-	    }
-	}
-
 	$('#editFileToLoad').change(editImageTo64(function(editBase64Img){
 
 	    $('#js-image-edit-preview')
@@ -328,14 +348,10 @@ function editCato(key) {
 
 	editCatoForm(key);
 
-	
-
 }
 
 
-
-
-
+// Saves edited cato
 
 function saveThisCato(key) {
 
@@ -346,87 +362,115 @@ function saveThisCato(key) {
 		catosData[key].image = $('#js-image-edit-preview').attr('src');
 	}
 
-	
-
-
-
 	localStorage.setItem('catosData', JSON.stringify(catosData));
 
     catosData = JSON.parse(localStorage.getItem('catosData'));
 
     showCatos();
 
+}
+
+
+// Re-assigns catos order
+
+function reassignOrder() {
+
+	$(catosData).each(function(key){
+
+		catosData[key].order = key;
+
+    });
 
 }
 
 
+// Re-sorts catos order
+
+function reSortCatos() {
+
+	let newOrder = [];
+    $("#js-catos-list").find(".cato-key").each(function(){
+        if(($.trim($(this).text()).length>0)){
+	         newOrder.push(parseInt($(this).text()));
+	    }
+
+    	reassignOrder();
+
+    });
+
+	let sortedCatosData = _.sortBy(catosData, function(obj){ 
+	    return _.indexOf(newOrder, obj.order);
+	});
+
+    localStorage.setItem('catosData', JSON.stringify(sortedCatosData));
+	catosData = JSON.parse(localStorage.getItem('catosData'));
+
+	showCatos();
+  
+
+}
 
 
+/* On Doc ready listeners */
 
 $( document ).ready(function() {
 
 
-	
-
-
-// Button listeners
-
-$( "#js-save-cato" ).on("click", function() {
-      saveNewCato();
-});
-
-
-
-
-
-
-$(document).on('click', '.js-cato-delete', function () {
-
-
-    let arrayPos =  this.id.split('-')[1];
-
-
-    deleteCato(arrayPos);
-
-});
-
-
-
-
-$(document).on('click', '.js-cato-edit', function () {
-
-
-    let arrayPos =  this.id.split('-')[1];
-
-
-    editCato(arrayPos);
-
-});
-
-
-
-$(document).on('click', '.js-save-this-cato', function () {
-
-
-	if (confirmCatoAction('Are you sure you want to edit this cato?')) {
-
-		let arrayPos =  this.id.split('-')[1];
-	    saveThisCato(arrayPos);
-
-	} else {
-		console.log("nothin happened");
-	}
-
-});
-
-
-
-
-
-
-
+	// Show catos when doc is ready
 
 	showCatos();
+
+
+	// Img input listener
+
+	$('#inputFileToLoad').change(imageTo64(function(base64Img){
+	    $('.output')
+	  		.find('img')
+	        .attr('src', base64Img);
+	}));
+
+
+	// Button listeners
+
+	$( "#js-save-cato" ).on("click", function() {
+	      saveNewCato();
+	});
+
+
+	$(document).on('click', '.js-cato-delete', function () {
+
+
+	    let arrayPos =  this.id.split('-')[1];
+
+
+	    deleteCato(arrayPos);
+
+	});
+
+
+	$(document).on('click', '.js-cato-edit', function () {
+
+
+	    let arrayPos =  this.id.split('-')[1];
+	    editCato(arrayPos);
+
+	});
+
+
+	$(document).on('click', '.js-save-this-cato', function () {
+
+
+		if (confirmCatoAction('Are you sure you want to edit this cato?')) {
+
+			let arrayPos =  this.id.split('-')[1];
+		    saveThisCato(arrayPos);
+
+		} else {
+			console.log("nothin happened");
+		}
+
+	});
+
 
 
 	$('.file-input').on('change', function() {
@@ -434,110 +478,23 @@ $(document).on('click', '.js-save-this-cato', function () {
 	});
 
 
+});	
 
 
-
-
-
-
-
-
-
-
-	function reassignOrder() {
-
-		$(catosData).each(function(key){
-
-			catosData[key].order = key;
-
-        });
-
-
-
-
-
-	}
-
-
-
-
-
-
-
-
-	function reSortCatos() {
-
-		//let newOrder = $(".cato-key").text();
-
-		//console.log(newOrder);
-
-
-
-		var newOrder = [];
-	    $("#js-catos-list").find(".cato-key").each(function(){
-	        if(($.trim($(this).text()).length>0)){
-	         newOrder.push(parseInt($(this).text()));
-        }
-
-
-        reassignOrder();
-
-
-	    });
-
-
-
-
-
-		var sortedCatosData = _.sortBy(catosData, function(obj){ 
-		    return _.indexOf(newOrder, obj.order);
-		});
-
-
-
-
-
-	    localStorage.setItem('catosData', JSON.stringify(sortedCatosData));
-    	catosData = JSON.parse(localStorage.getItem('catosData'));
-
-
-    	showCatos();
-
-	    
-
-	}
-
-
-
-
-
-
+// Calls Sortable
 
 $( function() {
     $( "#js-catos-list" ).sortable();
     $( "#js-catos-list" ).disableSelection();
-  } );
-
-
-
-$('#js-catos-list').sortable({
-    axis: 'y',
-    update: function (event, ui) {
-        
-        reSortCatos();
-    }
 });
 
 
+// Makes catos list sortable
 
-
-
-
-
-
-
-
-
-});	
-
+$('#js-catos-list').sortable({
+    axis: 'y',
+    update: function (event, ui) {        
+        reSortCatos();
+    }
+});
 
