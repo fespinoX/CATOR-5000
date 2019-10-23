@@ -154,27 +154,24 @@ function confirmCatoAction ( message ) {
  }
 
 
-function newCatValidation(name, desc, img) {
-	
-	if (catoNameValidation(name) ) {
-		return true;
-	} else {
-		
-	}
 
-}
 
- // Validate name
+
+  // Validate name
 
  function catoNameValidation(name) {
 
  	if(name.length > 0) {
-
+ 		$("#js-new-cato-form").find("#js-name-validation").addClass('d-none');
  		console.log("name ok");
  		return true;
 
  	} else {
+ 		$("#js-new-cato-form").find("#js-name-validation").removeClass('d-none');
+ 		$("#js-new-cato-form").find("#js-name-validation").html("Please enter a name for this cato");
 
+ 		
+ 		
  		console.log("name too short");
 
  	}
@@ -182,16 +179,79 @@ function newCatValidation(name, desc, img) {
  }
 
 
+ // Validate description
+
+ function catoDescValidation(desc) {
+
+ 	if(desc.length < 1) {
+ 		console.log("desc too short");
+ 		$("#js-new-cato-form").find("#js-desc-validation").removeClass('d-none');
+ 		$("#js-new-cato-form").find("#js-desc-validation").html("Please enter a description for this cato");
+ 	} else if (desc.length > 300) {
+ 		console.log("desc too long");
+ 		$("#js-new-cato-form").find("#js-desc-validation").removeClass('d-none');
+ 		$("#js-new-cato-form").find("#js-desc-validation").html("You don't need to say so much about this cato. 300 characters should be enough, human!");
+ 	} else {
+ 		$("#js-new-cato-form").find("#js-desc-validation").addClass('d-none');
+ 		console.log("name ok");
+ 		return true;
+ 	}
+ 		
+ }
+
+
+// New cat validation
+
+function newCatValidation(name, desc) {
+	
+	if (catoNameValidation(name) & catoDescValidation(desc)) {
+		return true;
+	} else {
+
+	}
+
+}
+
+
+function validateFileType(fileName) {
+
+	let re = /(\.jpg|\.gif|\.png)$/i;
+	if(re.exec(fileName)) 	{
+
+		return true;
+	}
+
+
+}
+
+
+
 // Encode image as base64
 
 function imageTo64(cb) {
     return function(){
         let file = this.files[0];
-        let reader  = new FileReader();
-        reader.onloadend = function () {
-            cb(reader.result);
+
+
+        let fileName = file.name;
+
+        if (validateFileType(fileName)) {
+
+        	let reader  = new FileReader();
+	        reader.onloadend = function () {
+	            cb(reader.result);
+	        }
+	        reader.readAsDataURL(file);
+
+        } else {
+
+        	console.log("file ext invalid");
+
         }
-        reader.readAsDataURL(file);
+
+
+
+        
     }
 }
 
@@ -220,7 +280,7 @@ function saveNewCato() {
 	let catoImg = $('#js-image-preview').attr('src');
 
 
-	if (newCatValidation(catoName, catoDesc, catoImg)) {
+	if (newCatValidation(catoName, catoDesc)) {
 
 		// gets new cato details
 
@@ -422,6 +482,7 @@ $( document ).ready(function() {
 
 
 	// Img input listener
+
 
 	$('#inputFileToLoad').change(imageTo64(function(base64Img){
 	    $('.output')
