@@ -200,11 +200,36 @@ function confirmCatoAction ( message ) {
  }
 
 
+
+ // Validate image
+
+ function catoImgValidation(img) {
+
+
+ 	if(img == undefined) {
+ 		console.log("no valid image uploaded");
+ 		$("#js-new-cato-form").find("#js-img-validation").removeClass('d-none');
+ 		$("#js-new-cato-form").find("#js-img-validation").html("Please upload a picture of your cato!");
+ 	}else if (img.width != 320 || img.height != 320) {
+ 		$("#js-new-cato-form").find("#js-img-validation").removeClass('d-none');
+ 		$("#js-new-cato-form").find("#js-img-validation").html("Wrong picture size, should be 320px x 320px");
+ 	} else {
+ 		$("#js-new-cato-form").find("#js-img-validation").addClass('d-none');
+ 		console.log("image ok");
+ 		return true;
+ 	}
+
+
+
+
+}
+
+
 // New cat validation
 
-function newCatValidation(name, desc) {
+function newCatValidation(name, desc, img) {
 	
-	if (catoNameValidation(name) & catoDescValidation(desc)) {
+	if (catoNameValidation(name) & catoDescValidation(desc) & catoImgValidation(img) ) {
 		return true;
 	} else {
 
@@ -219,10 +244,18 @@ function validateFileType(fileName) {
 	if(re.exec(fileName)) 	{
 
 		return true;
+	} else {
+
+		$("#js-new-cato-form").find("#js-img-validation").removeClass('d-none');
+ 		$("#js-new-cato-form").find("#js-img-validation").html("Invalid file type, sorry, only .jpg, .gif or .png allowed");
+
 	}
 
 
 }
+
+
+
 
 
 
@@ -237,6 +270,8 @@ function imageTo64(cb) {
 
         if (validateFileType(fileName)) {
 
+        	$("#js-new-cato-form").find("#js-img-validation").addClass('d-none');
+
         	let reader  = new FileReader();
 	        reader.onloadend = function () {
 	            cb(reader.result);
@@ -246,6 +281,8 @@ function imageTo64(cb) {
         } else {
 
         	console.log("file ext invalid");
+
+
 
         }
 
@@ -279,12 +316,10 @@ function saveNewCato() {
 	let catoDesc = $('.js-newcato-desc').val();
 	let catoImg = $('#js-image-preview').attr('src');
 
+	if (newCatValidation(catoName, catoDesc, catoImg)) {
 
-	if (newCatValidation(catoName, catoDesc)) {
 
 		// gets new cato details
-
-		
 
 		if (confirmCatoAction('Are you sure you want to save this new cato?')) {
 			let newCato = {
