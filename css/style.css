@@ -8,6 +8,8 @@
  	* 2.1 - Colors
  	* 2.2 - Fonts
  * 3.0 - General
+ * 4.0 - Buttons
+ * 5.0 - Design
 
  	
 
@@ -60,9 +62,8 @@ q:before, q:after {
   content: '';
   content: none; }
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0; }
+textarea {
+  resize: none; }
 
 img {
   max-width: 100%; }
@@ -85,22 +86,193 @@ select:-webkit-autofill:focus {
 /* 2.1 Colors
 ------------------------
 */
-/*
-#D1499A magenta
-#FED402 amarillo
-#F15532 naranja
-*/
-/* 2.1 Fonts
+/* 2.2 Fonts
 ------------------------
 */
 /* =====================
    3.0 General
    ===================== */
+html {
+  background-color: #D1499A;
+  font-size: 16px;
+  font-family: sans-serif; }
+
 .d-none {
-  display: none; }
+  display: none !important; }
 
-p {
-  color: #D1499A; }
+.d-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex; }
 
-.catos-list li {
-  margin: 50px 0; }
+.d-grid {
+  display: -ms-grid;
+  display: grid; }
+
+main {
+  background-color: #D1499A;
+  padding: 15px; }
+
+/* =====================
+   4.0 Buttons
+   ===================== */
+.btn {
+  padding: 5px 20px;
+  border-radius: 5px;
+  border: 2px solid;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-family: "Oswald", sans-serif;
+  outline: none;
+  cursor: pointer; }
+  .btn:hover {
+    opacity: .7;
+    cursor: pointer; }
+  .btn.btn-pr {
+    background-color: #FED402;
+    border-color: #FED402;
+    color: #D1499A; }
+  .btn.btn-sc {
+    background-color: transparent;
+    border-color: #FED402;
+    color: #FED402; }
+
+/* =====================
+   4.0 Design
+   ===================== */
+h1 {
+  font-family: "fatcatregular", sans-serif;
+  font-size: 4rem;
+  color: #FED402; }
+
+.catos-exp {
+  margin-bottom: 15px; }
+  .catos-exp p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #FED402;
+    font-weight: 300; }
+
+.total-catos, .no-catos-msg {
+  display: inline-block;
+  font-size: 1.7rem;
+  color: #FED402;
+  text-transform: uppercase;
+  font-weight: 300;
+  background-color: #F15532; }
+  .total-catos .catos-qty, .no-catos-msg .catos-qty {
+    font-family: "fatcatregular", sans-serif;
+    font-size: 2.5rem; }
+
+.catos-list {
+  margin: 25px 0; }
+  .catos-list .cato-container {
+    padding: 25px;
+    align-items: center;
+    cursor: move;
+    /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab; }
+    .catos-list .cato-container .cato-photo {
+      width: 150px; }
+    .catos-list .cato-container .info-container {
+      margin-left: 25px; }
+      .catos-list .cato-container .info-container h2 {
+        margin-bottom: 5px;
+        font-family: "fatcatregular", sans-serif;
+        font-size: 1.7rem; }
+      .catos-list .cato-container .info-container p {
+        margin-bottom: 15px;
+        font-size: 1rem;
+        color: #FED402;
+        font-family: "Oswald", sans-serif;
+        font-size: 1.2rem; }
+      .catos-list .cato-container .info-container .btn {
+        margin-right: 15px; }
+    .catos-list .cato-container:nth-of-type(odd) {
+      background-color: #FED402; }
+      .catos-list .cato-container:nth-of-type(odd) h2, .catos-list .cato-container:nth-of-type(odd) p {
+        color: #D1499A; }
+      .catos-list .cato-container:nth-of-type(odd) .btn-pr {
+        background-color: #D1499A;
+        border-color: #D1499A;
+        color: #FED402; }
+      .catos-list .cato-container:nth-of-type(odd) .btn-sc {
+        background-color: transparent;
+        border-color: #D1499A;
+        color: #D1499A; }
+    .catos-list .cato-container:nth-of-type(even) {
+      background-color: #D1499A; }
+      .catos-list .cato-container:nth-of-type(even) h2, .catos-list .cato-container:nth-of-type(even) p {
+        color: #FED402; }
+    .catos-list .cato-container:active {
+      cursor: grabbing;
+      cursor: -moz-grabbing;
+      cursor: -webkit-grabbing; }
+    .catos-list .cato-container .cato-edit-container {
+      margin: 15px 0; }
+      .catos-list .cato-container .cato-edit-container input,
+      .catos-list .cato-container .cato-edit-container textarea {
+        display: block;
+        margin-bottom: 15px;
+        padding: 5px;
+        display: block;
+        width: 320px;
+        background-color: transparent;
+        font-size: 1rem;
+        font-family: "Oswald", sans-serif;
+        border: 2px solid #FED402; }
+
+.new-cato-cont {
+  padding: 25px;
+  border-top: 2px solid #FED402; }
+  .new-cato-cont h2 {
+    margin-bottom: 10px;
+    font-family: "fatcatregular", sans-serif;
+    font-size: 1.7rem;
+    color: #FED402; }
+  .new-cato-cont p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #FED402;
+    font-weight: 300; }
+  .new-cato-cont .new-cato-form {
+    margin-top: 15px; }
+    .new-cato-cont .new-cato-form li .new-label {
+      display: inline-block;
+      margin-bottom: 5px;
+      font-family: "Oswald", sans-serif;
+      font-size: 1rem;
+      color: #FED402;
+      text-transform: uppercase; }
+    .new-cato-cont .new-cato-form li input,
+    .new-cato-cont .new-cato-form li textarea {
+      margin-bottom: 15px;
+      padding: 5px;
+      display: block;
+      width: 320px;
+      background-color: transparent;
+      color: #FED402;
+      font-size: 1rem;
+      font-family: "Oswald", sans-serif;
+      outline-color: #FED402;
+      border: 2px solid #FED402; }
+      .new-cato-cont .new-cato-form li input[type="file"],
+      .new-cato-cont .new-cato-form li textarea[type="file"] {
+        display: none; }
+    .new-cato-cont .new-cato-form li .btn {
+      display: inline-block;
+      margin-top: 15px; }
+    .new-cato-cont .new-cato-form li .output {
+      margin: 15px 0; }
+    .new-cato-cont .new-cato-form li .new-error {
+      display: inline-block;
+      margin: 15px 0;
+      padding: 5px 0;
+      background-color: #FED402;
+      color: #D1499A;
+      text-transform: uppercase;
+      font-weight: 700; }

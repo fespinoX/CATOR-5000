@@ -15,6 +15,13 @@
     
 	<!-- Fonts -->
 	<link rel="stylesheet" href="fonts/stylesheet.css" type="text/css" />
+	
+	<!-- Fonts -->
+
+	<link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="fonts/style.css">
+
 
   	<!-- Compiled CSS -->
   	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -35,46 +42,69 @@
 	<main>
 	
 	<h1>Cator 5000</h1>
+	<div class="catos-exp">
+		<p>Cator 5000 is a cool app to manage all the cute catos in your life.</p>
+		<p>You can add, edit or delete (why?!) your catos.</p>
+		<p>You can also drag and drop to modify the order of the list.</p>
+	</div>
 
-	<div id="js-no-catos-msg" class="d-none"><p>there are no catos, WHY?!</p></div>
+	<p id="js-total-catos" class="total-catos">Total catos: <span id="js-catos-qty" class="catos-qty">X</span></p>
 
-	<p>Total catos: <span id="js-catos-qty">X</span></p>
+	<div id="js-no-catos-msg" class="no-catos-msg d-none">
+		<p>there are no catos, WHY?!</p>
+	</div>
 
 	<ul id="js-catos-list" class="catos-list">
 	</ul>
-
-	<span>Add a new cato</span>
-
-	<ul id="js-new-cato-form">
-		
-		<li>
-			
-			<form class="input-group" id="img2b64">
-			    <input id="inputFileToLoad" type="file" />
-			</form>
-			
-			<div class="output">
-			    <img id="js-image-preview">
-			</div>
-
-			<span id="js-img-validation" class="d-none"></span>
-
-
-		</li>
-		
-		<li><span>Name:</span> <input type="text" class="js-newcato-name"><span id="js-name-validation" class="d-none"></span></li>
-		
-			
-		<li><span>Description:</span> <textarea name="" id="" cols="30" rows="10" class="js-newcato-desc"></textarea><span id="js-desc-validation" class="d-none"></span></li>
 	
 
-	</ul>
+	<div class="new-cato-cont">
+		
+		<h2>Add a new cato</h2>
+		<p>You can add new catos using this form.</p>
+		<p>Description can't be more than 300 characters.</p>
+		<p>Images can only be 320px x 320px and .jpg, .png or .gif file formats only.</p>
+		<p>All fields are required.</p>
 
 	
+		<ul id="js-new-cato-form" class="new-cato-form">
+			
+			<li>
+				<span class="new-label">Photo:</span>	
+				<form class="input-group" id="img2b64">
 
-	<button id="js-save-cato">Save Cato</button>
+					<label for="inputFileToLoad" class="btn btn-sc">Upload photo </label>
+					<input id="inputFileToLoad" type="file"/>
+
+				</form>
+				<div class="output">
+				    <img id="js-image-preview">
+				</div>
+				<span id="js-img-validation" class="new-error d-none"></span>
+			</li>
+			
+			<li>
+				<span class="new-label">Name:</span>
+				<input type="text" class="js-newcato-name">
+				<span id="js-name-validation" class="new-error d-none"></span>
+			</li>
+			
+				
+			<li>
+				<span class="new-label">Description:</span>
+				<textarea name="" id="" cols="30" rows="10" class="js-newcato-desc"></textarea>
+				<span id="js-desc-validation" class="new-error d-none"></span>
+			</li>
+		
+
+		</ul>
+
+		
+
+		<button class="btn btn-pr" id="js-save-cato">Save Cato</button>
 
 
+	</div>
 
 	</main>
 

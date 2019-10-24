@@ -5,13 +5,13 @@
 var catos = [
     	{
     		name: 'Zelda',
-    		description: 'A supercute alien cat',
+    		description: 'A supercute alien cat from the planet Pawtron 5000.',
     		image: 'img/base-catos/zelda.jpg',
     		order: 0
     	},
       	{
       		name: 'Minerva',
-      		description: 'The office favourite one.',
+      		description: 'The office favourite one even though she has no neck.',
       		image: 'img/base-catos/minerva.jpg',
     		order: 1
       	},
@@ -51,8 +51,10 @@ function checkIfNoCatos(catosQty) {
 
 	if (catosQty < 1) {
 		$('#js-no-catos-msg').removeClass('d-none');
+		$('#js-total-catos').addClass('d-none');
 	} else {
 		$('#js-no-catos-msg').addClass('d-none');
+		$('#js-total-catos').removeClass('d-none');
 	}
 
 }
@@ -93,33 +95,43 @@ function showCatos() {
 	$.each(catosData, function(i)
 	{
 	    let li = $('<li/>')
+	    	.addClass('cato-container')
+	    	.addClass('d-flex')
 	        .appendTo($('#js-catos-list'));
 		let key = $('<span/>')
-	        .addClass('cato-key')
+	        .addClass('js-cato-key')
+	        .addClass('d-none')
 	        .text(i)
-	        .appendTo(li);	        
-	    let name = $('<p/>')
-	        .addClass('cato-name')
-	        .text(catosData[i].name)
 	        .appendTo(li);
-		let description = $('<p/>')
-	        .addClass('cato-desc')
-	        .text(catosData[i].description)
-	        .appendTo(li);
-	    let image = $('<img/>')
+        let image = $('<img/>')
 	        .addClass('cato-photo')
 	        .attr('src', catosData[i].image)
 	        .appendTo(li);
-	    let btndelete = $('<button/>')
-	    	.addClass('js-cato-delete')
-	    	.attr('id', 'catodelete-' + i)
-	        .text("Delete Cato")
-	        .appendTo(li);
-	    let btnedit = $('<button/>')
+	    let infoContainer = $('<div/>')
+	    	.addClass('info-container')
+	    	.appendTo(li);
+	    let name = $('<h2/>')
+	        .addClass('cato-name')
+	        .text(catosData[i].name)
+	        .appendTo(infoContainer);
+		let description = $('<p/>')
+	        .addClass('cato-desc')
+	        .text(catosData[i].description)
+	        .appendTo(infoContainer);
+		let btnedit = $('<button/>')
 	    	.addClass('js-cato-edit')
+	    	.addClass('btn')
+	    	.addClass('btn-pr')
 	        .attr('id', 'catoedit-' + i)
 	        .text("Edit Cato")
-	        .appendTo(li);
+	        .appendTo(infoContainer);	        
+	    let btndelete = $('<button/>')
+	    	.addClass('js-cato-delete')
+	    	.addClass('btn')
+	    	.addClass('btn-sc')
+	    	.attr('id', 'catodelete-' + i)
+	        .text("Delete Cato")
+	        .appendTo(infoContainer);
 	});
 
 	getCatosQty();
@@ -205,8 +217,7 @@ function confirmCatoAction ( message ) {
 
  function catoImgValidation(img) {
 
-
- 	if(img == undefined) {
+ 	if($(img).attr('src') == undefined) {
  		console.log("no valid image uploaded");
  		$("#js-new-cato-form").find("#js-img-validation").removeClass('d-none');
  		$("#js-new-cato-form").find("#js-img-validation").html("Please upload a picture of your cato!");
@@ -227,12 +238,13 @@ function confirmCatoAction ( message ) {
 
 // New cat validation
 
-function newCatValidation(name, desc, img) {
-	
+function newCatoValidation(name, desc, img) {
+
+
 	if (catoNameValidation(name) & catoDescValidation(desc) & catoImgValidation(img) ) {
 		return true;
 	} else {
-
+		console.log("failed validation, cato not saved");
 	}
 
 }
@@ -314,9 +326,11 @@ function saveNewCato() {
 
 	let catoName = $('.js-newcato-name').val();
 	let catoDesc = $('.js-newcato-desc').val();
-	let catoImg = $('#js-image-preview').attr('src');
+	let catoImg = document.getElementById("js-image-preview");
 
-	if (newCatValidation(catoName, catoDesc, catoImg)) {
+	let catoPic = $('#js-image-preview').attr('src');
+
+	if (newCatoValidation(catoName, catoDesc, catoImg)) {
 
 
 		// gets new cato details
@@ -326,7 +340,7 @@ function saveNewCato() {
 
 				name: catoName,
 				description: catoDesc,
-				image: catoImg,
+				image: catoPic,
 				order: $( catosData ).length
 
 			};
@@ -484,7 +498,7 @@ function reassignOrder() {
 function reSortCatos() {
 
 	let newOrder = [];
-    $("#js-catos-list").find(".cato-key").each(function(){
+    $("#js-catos-list").find(".js-cato-key").each(function(){
         if(($.trim($(this).text()).length>0)){
 	         newOrder.push(parseInt($(this).text()));
 	    }

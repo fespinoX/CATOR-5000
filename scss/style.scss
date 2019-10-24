@@ -9,6 +9,8 @@
  	* 2.1 - Colors
  	* 2.2 - Fonts
  * 3.0 - General
+ * 4.0 - Buttons
+ * 5.0 - Design
 
  	
 
@@ -64,9 +66,9 @@ q:before, q:after {
 	content: '';
 	content: none;
 }
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+
+textarea {
+	resize: none;
 }
 
 img{
@@ -100,36 +102,287 @@ select:-webkit-autofill:focus {
 ------------------------
 */   
 
-$badass: #bada55;
-$magenta: #D1499A;
 $white: #000;
+$magenta: #D1499A;
+$yellow: #FED402;
+$orange: #F15532;
 
-/*
-#D1499A magenta
-#FED402 amarillo
-#F15532 naranja
-*/
 
-/* 2.1 Fonts
+/* 2.2 Fonts
 ------------------------
 */   
+
+$sserif: sans-serif;
+$oswald: 'Oswald', sans-serif;
+$fatcat: 'fatcatregular', sans-serif;
+
+$regsize: 1rem;
+$smsize: 0.9rem;
+$lsize: 1.2rem;
+$bigsize: 1.7rem;
+$xlsize: 2.5rem;
+$hugesize: 4rem;
 
 
 /* =====================
    3.0 General
    ===================== */
 
+html {
+	background-color: $magenta;
+	font-size: 16px;
+	font-family: $sserif;
+}
+
 .d-none {
-	display: none;
+	display: none!important;
 }
 
-p {
-	color: $magenta;
+.d-flex {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+.d-grid {
+	display: -ms-grid;
+	display: grid;
+}
+
+main {
+	background-color: $magenta;
+	padding: 15px;
 }
 
 
-.catos-list {
-	li {
-		margin: 50px 0;
+/* =====================
+   4.0 Buttons
+   ===================== */
+
+.btn {
+    padding: 5px 20px;
+    border-radius: 5px;
+    border: 2px solid;
+    font-size: $smsize;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: $oswald;
+    outline: none;
+    cursor: pointer; 
+
+	&:hover {
+		opacity: .7;
+		cursor: pointer;
+	}
+
+	&.btn-pr {
+		background-color: $yellow;
+		border-color: $yellow;
+		color: $magenta;
+	}
+
+	&.btn-sc {
+		background-color: transparent;
+		border-color: $yellow;
+		color: $yellow;
 	}
 }
+
+
+
+
+/* =====================
+   4.0 Design
+   ===================== */   
+
+h1 {
+	font-family: $fatcat;
+	font-size: $hugesize;
+	color: $yellow;
+}
+
+.catos-exp {
+	margin-bottom: 15px;
+	p {
+		margin: 5px 0;
+		font-size: $regsize;
+		color: $yellow;
+		font-weight: 300;
+	}
+}
+
+.total-catos, .no-catos-msg {
+	display: inline-block;
+	font-size: $bigsize;
+	color: $yellow;
+	text-transform: uppercase;
+	font-weight: 300;
+	background-color: $orange;
+
+	.catos-qty {
+		font-family: $fatcat;
+		font-size: $xlsize;
+	}
+}
+
+.catos-list {
+
+	margin: 25px 0;
+
+	.cato-container {
+		padding: 25px;
+		align-items: center;
+		cursor: move; /* fallback if grab cursor is unsupported */
+	    cursor: grab;
+	    cursor: -moz-grab;
+	    cursor: -webkit-grab;
+		
+		.cato-photo {
+			width: 150px;
+		}
+
+		.info-container {
+			margin-left: 25px;
+
+			h2 {
+				margin-bottom: 5px;
+				font-family: $fatcat;
+				font-size: $bigsize;
+			}
+			
+			p {
+				margin-bottom: 15px;
+				font-size: $regsize;
+				color: $yellow;
+				font-family: $oswald;
+				font-size: $lsize;
+			}
+
+			.btn {
+				margin-right: 15px;
+			}
+		}
+
+		&:nth-of-type(odd) {
+			background-color: $yellow;
+
+			h2, p {
+				color: $magenta;
+			}
+
+			.btn-pr {
+				background-color: $magenta;
+				border-color: $magenta;
+				color: $yellow;
+			}
+
+			.btn-sc {
+				background-color: transparent;
+				border-color: $magenta;
+				color: $magenta;
+			}
+		}
+
+		&:nth-of-type(even) {
+			background-color: $magenta;
+
+			h2, p {
+				color: $yellow;
+			}
+
+		}
+
+		&:active {
+			cursor: grabbing;
+		    cursor: -moz-grabbing;
+		    cursor: -webkit-grabbing;
+		}
+
+		.cato-edit-container {
+			margin: 15px 0;
+			input,
+			textarea {
+				display: block;
+				margin-bottom: 15px;
+				padding: 5px;
+				display: block;
+				width: 320px;
+				background-color: transparent;
+				//color: $yellow;
+				font-size: $regsize;
+				font-family: $oswald;
+				//outline-color: $yellow;
+				border: 2px solid $yellow;
+			}
+		}
+
+	}
+
+}
+
+
+.new-cato-cont {
+	padding: 25px;
+	border-top: 2px solid $yellow;
+	h2 {
+		margin-bottom: 10px;
+		font-family: $fatcat;
+		font-size: $bigsize;
+		color: $yellow;
+	}
+	p {
+		margin: 5px 0;
+		font-size: $regsize;
+		color: $yellow;
+		font-weight: 300;
+	}
+	.new-cato-form {
+		margin-top: 15px;
+		li {
+			.new-label {
+				display: inline-block;
+				margin-bottom: 5px;
+				font-family: $oswald;
+				font-size: $regsize;
+				color: $yellow;
+				text-transform: uppercase;
+			}
+			input,
+			textarea {
+				margin-bottom: 15px;
+				padding: 5px;
+				display: block;
+				width: 320px;
+				background-color: transparent;
+				color: $yellow;
+				font-size: $regsize;
+				font-family: $oswald;
+				outline-color: $yellow;
+				border: 2px solid $yellow;
+				&[type="file"] {
+				    display: none;
+				}
+			}
+			.btn {
+				display: inline-block;
+				margin-top: 15px;
+			}
+			.output {
+				margin: 15px 0;
+			}
+			.new-error {
+				display: inline-block;
+				margin: 15px 0;
+				padding: 5px 0;
+				background-color: $yellow;
+				color: $magenta;
+				text-transform: uppercase;
+				font-weight: 700;
+			}
+		}
+	}
+}
+
+
+
