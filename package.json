@@ -4,7 +4,9 @@
   "description": "Single page app to show cats, because of reasons.",
   "main": "index.js",
   "dependencies": {
-    "underscore": "^1.9.1"
+    "animate.css": "^3.7.2",
+    "underscore": "^1.9.1",
+    "wow.js": "^1.2.2"
   },
   "devDependencies": {
     "node-sass": "^4.12.0"

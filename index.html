@@ -10,18 +10,16 @@
 
 	<link rel="icon" href="img/favicon.ico" type="image/x-icon" />
 
-
   	<meta name="viewport" content="width=device-width, initial-scale=1" />
     
-	<!-- Fonts -->
-	<link rel="stylesheet" href="fonts/stylesheet.css" type="text/css" />
-	
 	<!-- Fonts -->
 
 	<link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" type="text/css" href="fonts/style.css">
+	<link rel="stylesheet" href="fonts/stylesheet.css" type="text/css" />
 
+	<!-- Animate CSS -->
+	<link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
 
   	<!-- Compiled CSS -->
   	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -32,7 +30,7 @@
 	<!-- JQuery UI -->
   	<script src="vendor/jqueryui/jquery-ui.js"></script>
 
-
+	<!-- Underscore -->
   	<script type="text/javascript" src="node_modules/underscore/underscore.js"></script>
   
 
@@ -57,6 +55,7 @@
 	<ul id="js-catos-list" class="catos-list">
 	</ul>
 	
+	<span class="action-message d-none" id="js-action-message"></span>
 
 	<div class="new-cato-cont">
 		
@@ -74,7 +73,7 @@
 				<form class="input-group" id="img2b64">
 
 					<label for="inputFileToLoad" class="btn btn-sc">Upload photo </label>
-					<input id="inputFileToLoad" type="file"/>
+					<input class="d-none" id="inputFileToLoad" type="file"/>
 
 				</form>
 				<div class="output">
@@ -107,6 +106,11 @@
 	</div>
 
 	</main>
+
+	<script src="node_modules/wow.js/dist/wow.min.js"></script>
+	<script>
+		new WOW().init();
+	</script>
 
 
 	<script src="js/scripts.js"></script>

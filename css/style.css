@@ -13,10 +13,10 @@
 
  	
 
- * 14.0 - Responsive
- 	* 14.1 - Mobile
- 	* 14.2 - Tablet
- 	* 14.3 - Desktop
+ * 6.0 - Responsive
+ 	* 6.1 - Mobile
+ 	* 6.2 - Tablet
+ 	* 6.3 - Desktop
 
  */
 /* =====================
@@ -204,10 +204,26 @@ h1 {
         background-color: transparent;
         border-color: #D1499A;
         color: #D1499A; }
+      .catos-list .cato-container:nth-of-type(odd) .cato-edit-container input,
+      .catos-list .cato-container:nth-of-type(odd) .cato-edit-container textarea {
+        color: #D1499A;
+        border-color: #D1499A;
+        outline-color: #D1499A; }
+      .catos-list .cato-container:nth-of-type(odd) .cato-edit-container .edit-error {
+        background-color: #D1499A;
+        color: #FED402; }
     .catos-list .cato-container:nth-of-type(even) {
       background-color: #D1499A; }
       .catos-list .cato-container:nth-of-type(even) h2, .catos-list .cato-container:nth-of-type(even) p {
         color: #FED402; }
+      .catos-list .cato-container:nth-of-type(even) .cato-edit-container input,
+      .catos-list .cato-container:nth-of-type(even) .cato-edit-container textarea {
+        color: #FED402;
+        border-color: #FED402;
+        outline-color: #FED402; }
+      .catos-list .cato-container:nth-of-type(even) .cato-edit-container .edit-error {
+        background-color: #FED402;
+        color: #D1499A; }
     .catos-list .cato-container:active {
       cursor: grabbing;
       cursor: -moz-grabbing;
@@ -224,7 +240,21 @@ h1 {
         background-color: transparent;
         font-size: 1rem;
         font-family: "Oswald", sans-serif;
-        border: 2px solid #FED402; }
+        border: 2px solid; }
+      .catos-list .cato-container .cato-edit-container .btn {
+        display: inline-block; }
+        .catos-list .cato-container .cato-edit-container .btn.btn-pr {
+          display: block;
+          margin-top: 15px; }
+      .catos-list .cato-container .cato-edit-container img {
+        display: block;
+        margin-top: 15px; }
+      .catos-list .cato-container .cato-edit-container .edit-error {
+        display: inline-block;
+        margin: 15px 0;
+        padding: 5px 0;
+        text-transform: uppercase;
+        font-weight: 700; }
 
 .new-cato-cont {
   padding: 25px;
@@ -260,9 +290,6 @@ h1 {
       font-family: "Oswald", sans-serif;
       outline-color: #FED402;
       border: 2px solid #FED402; }
-      .new-cato-cont .new-cato-form li input[type="file"],
-      .new-cato-cont .new-cato-form li textarea[type="file"] {
-        display: none; }
     .new-cato-cont .new-cato-form li .btn {
       display: inline-block;
       margin-top: 15px; }
@@ -270,9 +297,25 @@ h1 {
       margin: 15px 0; }
     .new-cato-cont .new-cato-form li .new-error {
       display: inline-block;
-      margin: 15px 0;
+      margin: 0 0 15px;
       padding: 5px 0;
       background-color: #FED402;
       color: #D1499A;
       text-transform: uppercase;
       font-weight: 700; }
+
+/* =====================
+   6.0 Responsive
+   ===================== */
+@media (max-width: 767px) {
+  html {
+    font-size: 14px; }
+  .catos-list {
+    margin: 25px  -15px; }
+    .catos-list .cato-container {
+      display: block;
+      padding: 15px; }
+      .catos-list .cato-container .info-container {
+        margin: 10px 0 0; }
+  .new-cato-cont {
+    padding: 15px 0; } }

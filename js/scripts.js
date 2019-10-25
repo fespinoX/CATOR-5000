@@ -40,8 +40,6 @@ if (localStorage.getItem('catosData')) {
  }
 
 
-
-
 /* Functions */
 
 
@@ -97,6 +95,8 @@ function showCatos() {
 	    let li = $('<li/>')
 	    	.addClass('cato-container')
 	    	.addClass('d-flex')
+	    	.addClass('wow')
+	    	.addClass('bounceInLeft')
 	        .appendTo($('#js-catos-list'));
 		let key = $('<span/>')
 	        .addClass('js-cato-key')
@@ -166,89 +166,7 @@ function confirmCatoAction ( message ) {
  }
 
 
-
-
-
-  // Validate name
-
- function catoNameValidation(name) {
-
- 	if(name.length > 0) {
- 		$("#js-new-cato-form").find("#js-name-validation").addClass('d-none');
- 		console.log("name ok");
- 		return true;
-
- 	} else {
- 		$("#js-new-cato-form").find("#js-name-validation").removeClass('d-none');
- 		$("#js-new-cato-form").find("#js-name-validation").html("Please enter a name for this cato");
-
- 		
- 		
- 		console.log("name too short");
-
- 	}
-
- }
-
-
- // Validate description
-
- function catoDescValidation(desc) {
-
- 	if(desc.length < 1) {
- 		console.log("desc too short");
- 		$("#js-new-cato-form").find("#js-desc-validation").removeClass('d-none');
- 		$("#js-new-cato-form").find("#js-desc-validation").html("Please enter a description for this cato");
- 	} else if (desc.length > 300) {
- 		console.log("desc too long");
- 		$("#js-new-cato-form").find("#js-desc-validation").removeClass('d-none');
- 		$("#js-new-cato-form").find("#js-desc-validation").html("You don't need to say so much about this cato. 300 characters should be enough, human!");
- 	} else {
- 		$("#js-new-cato-form").find("#js-desc-validation").addClass('d-none');
- 		console.log("name ok");
- 		return true;
- 	}
- 		
- }
-
-
-
- // Validate image
-
- function catoImgValidation(img) {
-
- 	if($(img).attr('src') == undefined) {
- 		console.log("no valid image uploaded");
- 		$("#js-new-cato-form").find("#js-img-validation").removeClass('d-none');
- 		$("#js-new-cato-form").find("#js-img-validation").html("Please upload a picture of your cato!");
- 	}else if (img.width != 320 || img.height != 320) {
- 		$("#js-new-cato-form").find("#js-img-validation").removeClass('d-none');
- 		$("#js-new-cato-form").find("#js-img-validation").html("Wrong picture size, should be 320px x 320px");
- 	} else {
- 		$("#js-new-cato-form").find("#js-img-validation").addClass('d-none');
- 		console.log("image ok");
- 		return true;
- 	}
-
-
-
-
-}
-
-
-// New cat validation
-
-function newCatoValidation(name, desc, img) {
-
-
-	if (catoNameValidation(name) & catoDescValidation(desc) & catoImgValidation(img) ) {
-		return true;
-	} else {
-		console.log("failed validation, cato not saved");
-	}
-
-}
-
+ // File type validation
 
 function validateFileType(fileName) {
 
@@ -259,16 +177,13 @@ function validateFileType(fileName) {
 	} else {
 
 		$("#js-new-cato-form").find("#js-img-validation").removeClass('d-none');
+		$(".js-cato-edit-container").find(".js-edit-img-validation").removeClass('d-none');
  		$("#js-new-cato-form").find("#js-img-validation").html("Invalid file type, sorry, only .jpg, .gif or .png allowed");
+ 		$(".js-cato-edit-container").find(".js-edit-img-validation").html("Invalid file type, sorry, only .jpg, .gif or .png allowed");
 
 	}
-
-
+	
 }
-
-
-
-
 
 
 // Encode image as base64
@@ -283,6 +198,7 @@ function imageTo64(cb) {
         if (validateFileType(fileName)) {
 
         	$("#js-new-cato-form").find("#js-img-validation").addClass('d-none');
+        	$(".cato-edit-container").find(".js-edit-img-validation").addClass('d-none');
 
         	let reader  = new FileReader();
 	        reader.onloadend = function () {
@@ -293,30 +209,128 @@ function imageTo64(cb) {
         } else {
 
         	console.log("file ext invalid");
-
-
-
-        }
-
-
-
-        
+        }     
     }
 }
 
 
-// Encodes edited image as base64
 
-function editImageTo64(cb) {
+  // Validate name
 
-    return function(){
-        let editfile = this.files[0];
-        let editreader  = new FileReader();
-        editreader.onloadend = function () {
-            cb(editreader.result);
-        }
-        editreader.readAsDataURL(editfile);
-    }
+ function catoNameValidation(name, form) {
+
+ 	let cont;
+
+ 	if (form == "new") {
+ 		cont = $("#js-new-cato-form").find("#js-name-validation");
+ 	} else if (form == "edit"){
+ 		cont = $(".cato-edit-container").find(".js-edit-name-validation");
+ 	}
+
+
+
+ 	if(name.length > 0) {
+ 		$(cont).addClass('d-none');
+ 		console.log("name ok");
+ 		return true;
+
+ 	} else {
+ 		$(cont).removeClass('d-none');
+ 		$(cont).html("Please enter a name for this cato");
+
+ 		
+ 		
+ 		console.log("name too short");
+
+ 	}
+
+ }
+
+
+ // Validate description
+
+ function catoDescValidation(desc, form) {
+
+ 	let cont;
+
+ 	if (form == "new") {
+ 		cont = $("#js-new-cato-form").find("#js-desc-validation");
+ 	} else if (form == "edit"){
+ 		cont = $(".cato-edit-container").find(".js-edit-desc-validation");
+ 	}
+
+ 	if(desc.length < 1) {
+ 		console.log("desc too short");
+ 		$(cont).removeClass('d-none');
+ 		$(cont).html("Please enter a description for this cato");
+ 	} else if (desc.length > 300) {
+ 		console.log("desc too long");
+ 		$(cont).removeClass('d-none');
+ 		$(cont).html("You don't need to say so much about this cato. 300 characters should be enough, human!");
+ 	} else {
+ 		$(cont).addClass('d-none');
+ 		console.log("desc ok");
+ 		return true;
+ 	}
+ 		
+ }
+
+
+ // Validate image
+
+ function catoImgValidation(img, form) {
+
+ 	let cont;
+
+ 	if (form == "new") {
+
+ 		cont = $("#js-new-cato-form").find("#js-img-validation");
+
+ 		if ($(img).attr('src') == undefined) {
+
+ 			console.log("no valid image uploaded");
+	 		cont.removeClass('d-none');
+	 		cont.html("Please upload a picture of your cato!");
+
+ 		} else if ( img.width != 320 || img.height != 320 ) {
+ 			console.log("img size is wrong");
+	 		cont.removeClass('d-none');
+	 		cont.html("Wrong picture size, should be 320px x 320px");
+ 		} else {
+ 			cont.addClass('d-none');
+	 		console.log("image ok");
+	 		return true;
+ 		}
+ 	} else if (form == "edit") {
+ 		cont = $(".cato-edit-container").find(".js-edit-img-validation");
+
+ 		if ( $(img).attr('src') != undefined && (img.width != 320 || img.height != 320) ) {
+
+	 		console.log("img size is wrong");
+	 		cont.removeClass('d-none');
+	 		cont.html("Wrong picture size, should be 320px x 320px");
+
+	 	} else {
+	 		cont.addClass('d-none');
+	 		console.log("image ok");
+	 		return true;
+	 	}
+ 	}
+
+}
+
+
+// New cat validation
+
+function newCatoValidation(name, desc, img) {
+
+
+	if (catoNameValidation(name, "new") & catoDescValidation(desc, "new") & catoImgValidation(img, "new") ) {
+		return true;
+	} else {
+		console.log("failed validation, cato not saved");
+	}
+
 }
 
 
@@ -353,13 +367,14 @@ function saveNewCato() {
 
 		    emptyCatoForm();
 		    showCatos();
+
+		    console.log("new cato saved");
+
 		} else {
 
 			console.log("failed validation");
 
 		}
-
-		
 
     } else {
 
@@ -368,6 +383,7 @@ function saveNewCato() {
 	}
 
 }
+
 
 // Deletes cato
 
@@ -415,6 +431,7 @@ function editCatoForm(key) {
 
 	let editcontainer = $('<div/>')
         .addClass('cato-edit-container')
+        .addClass('js-cato-edit-container')
 		.insertAfter( '#catoedit-' + key );
 
     let name = $('<input/>')
@@ -422,31 +439,59 @@ function editCatoForm(key) {
         .addClass('js-cato-edit-name')
         .val(catosData[key].name)
         .appendTo(editcontainer);
+    let nameError = $('<span/>')
+        .addClass('js-edit-name-validation')
+        .addClass('edit-error')
+        .addClass('d-none')
+        .appendTo(editcontainer);
     let description = $('<textarea/>')
         .addClass('cato-edit-desc')
         .addClass('js-cato-edit-desc')
         .val(catosData[key].description)
         .appendTo(editcontainer);
+    let descError = $('<span/>')
+        .addClass('js-edit-desc-validation')
+        .addClass('edit-error')
+        .addClass('d-none')
+        .appendTo(editcontainer);
+	let filelabel = $('<label/>')
+    	.addClass('btn')
+    	.addClass('btn-sc')
+    	.text("Upload photo")
+    	.attr('for', 'editFileToLoad')
+    	.appendTo(editcontainer);        
     let file = $('<input/>')
     	.addClass('file-input')
+    	.addClass('d-none')
     	.attr('id', 'editFileToLoad')
     	.attr('type', 'file')
     	.appendTo(editcontainer);
     let preview = $('<img/>')
     	.attr('id', 'js-image-edit-preview')
     	.appendTo(editcontainer);
+	let imgError = $('<span/>')
+        .addClass('js-edit-img-validation')
+        .addClass('edit-error')
+        .addClass('d-none')
+        .appendTo(editcontainer);
     let button = $('<button/>')
     	.addClass('js-save-this-cato')
+    	.addClass('btn')
+    	.addClass('btn-pr')
     	.text("Save Cato")
     	.attr('id', 'editcato-' + key)
     	.appendTo(editcontainer);
 
 
-	$('#editFileToLoad').change(editImageTo64(function(editBase64Img){
+	$('#editFileToLoad').change(imageTo64(function(editBase64Img){
 
 	    $('#js-image-edit-preview')
 	        .attr('src', editBase64Img);
 	}));
+
+	$('#editFileToLoad').change(function() {
+		$("#js-new-cato-form").find("#js-img-validation").addClass('d-none');
+	});
 
 }
 
@@ -462,20 +507,37 @@ function editCato(key) {
 
 // Saves edited cato
 
-function saveThisCato(key) {
+function saveEditedCato(key) {
 
-	catosData[key].name = $('.js-cato-edit-name').val();
-	catosData[key].description = $('.js-cato-edit-desc').val();
+	let name = $('.js-cato-edit-name').val();
+	let desc = $('.js-cato-edit-desc').val();
+	let img = document.getElementById("js-image-edit-preview");
 
-	if ($('#js-image-edit-preview').attr('src') != undefined) {
-		catosData[key].image = $('#js-image-edit-preview').attr('src');
+
+	if (catoNameValidation(name, "edit") & catoDescValidation(desc, "edit") & catoImgValidation(img, "edit"))  {
+
+
+		if (confirmCatoAction('Are you sure you want to edit this cato?')) {
+
+			catosData[key].name = $('.js-cato-edit-name').val();
+			catosData[key].description = $('.js-cato-edit-desc').val();
+
+			if ($('#js-image-edit-preview').attr('src') != undefined) {
+				catosData[key].image = $('#js-image-edit-preview').attr('src');
+			}
+
+			localStorage.setItem('catosData', JSON.stringify(catosData));
+
+		    catosData = JSON.parse(localStorage.getItem('catosData'));
+
+		    showCatos();
+
+
+		} else {
+			console.log("nothin happened");
+		}
+
 	}
-
-	localStorage.setItem('catosData', JSON.stringify(catosData));
-
-    catosData = JSON.parse(localStorage.getItem('catosData'));
-
-    showCatos();
 
 }
 
@@ -516,7 +578,6 @@ function reSortCatos() {
 
 	showCatos();
   
-
 }
 
 
@@ -532,12 +593,16 @@ $( document ).ready(function() {
 
 	// Img input listener
 
-
 	$('#inputFileToLoad').change(imageTo64(function(base64Img){
 	    $('.output')
 	  		.find('img')
 	        .attr('src', base64Img);
 	}));
+
+
+	$('#inputFileToLoad').change(function() {
+		$(".cato-edit-container").find(".js-edit-img-validation").addClass('d-none');
+	});
 
 
 	// Button listeners
@@ -549,9 +614,7 @@ $( document ).ready(function() {
 
 	$(document).on('click', '.js-cato-delete', function () {
 
-
 	    let arrayPos =  this.id.split('-')[1];
-
 
 	    deleteCato(arrayPos);
 
@@ -559,7 +622,6 @@ $( document ).ready(function() {
 
 
 	$(document).on('click', '.js-cato-edit', function () {
-
 
 	    let arrayPos =  this.id.split('-')[1];
 	    editCato(arrayPos);
@@ -569,18 +631,10 @@ $( document ).ready(function() {
 
 	$(document).on('click', '.js-save-this-cato', function () {
 
-
-		if (confirmCatoAction('Are you sure you want to edit this cato?')) {
-
-			let arrayPos =  this.id.split('-')[1];
-		    saveThisCato(arrayPos);
-
-		} else {
-			console.log("nothin happened");
-		}
+		let arrayPos =  this.id.split('-')[1];
+	    saveEditedCato(arrayPos);
 
 	});
-
 
 
 	$('.file-input').on('change', function() {
@@ -591,7 +645,7 @@ $( document ).ready(function() {
 });	
 
 
-// Calls Sortable
+// Makes list sortable
 
 $( function() {
     $( "#js-catos-list" ).sortable();

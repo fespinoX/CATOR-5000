@@ -14,10 +14,10 @@
 
  	
 
- * 14.0 - Responsive
- 	* 14.1 - Mobile
- 	* 14.2 - Tablet
- 	* 14.3 - Desktop
+ * 6.0 - Responsive
+ 	* 6.1 - Mobile
+ 	* 6.2 - Tablet
+ 	* 6.3 - Desktop
 
  */
 
@@ -282,6 +282,19 @@ h1 {
 				border-color: $magenta;
 				color: $magenta;
 			}
+
+			.cato-edit-container {
+				input,
+				textarea {
+					color: $magenta;
+					border-color: $magenta;
+					outline-color: $magenta;
+				}
+				.edit-error {
+					background-color: $magenta;
+					color: $yellow;
+				}
+			}
 		}
 
 		&:nth-of-type(even) {
@@ -290,7 +303,19 @@ h1 {
 			h2, p {
 				color: $yellow;
 			}
-
+			
+			.cato-edit-container {
+				input,
+				textarea {
+					color: $yellow;
+					border-color: $yellow;
+					outline-color: $yellow;
+				}
+				.edit-error {
+					background-color: $yellow;
+					color: $magenta;
+				}
+			}
 		}
 
 		&:active {
@@ -309,11 +334,27 @@ h1 {
 				display: block;
 				width: 320px;
 				background-color: transparent;
-				//color: $yellow;
 				font-size: $regsize;
 				font-family: $oswald;
-				//outline-color: $yellow;
-				border: 2px solid $yellow;
+				border: 2px solid;
+			}
+			.btn {
+				display: inline-block;
+				&.btn-pr {
+					display: block;
+					margin-top: 15px;
+				}
+			}
+			img {
+				display: block;
+				margin-top: 15px;
+			}
+			.edit-error {
+				display: inline-block;
+			    margin: 15px 0;
+			    padding: 5px 0;
+			    text-transform: uppercase;
+    			font-weight: 700;
 			}
 		}
 
@@ -360,9 +401,6 @@ h1 {
 				font-family: $oswald;
 				outline-color: $yellow;
 				border: 2px solid $yellow;
-				&[type="file"] {
-				    display: none;
-				}
 			}
 			.btn {
 				display: inline-block;
@@ -373,7 +411,7 @@ h1 {
 			}
 			.new-error {
 				display: inline-block;
-				margin: 15px 0;
+				margin: 0 0 15px;
 				padding: 5px 0;
 				background-color: $yellow;
 				color: $magenta;
@@ -385,4 +423,30 @@ h1 {
 }
 
 
+/* =====================
+   6.0 Responsive
+   ===================== */
 
+@media (max-width: 767px) {
+	
+	html {
+		font-size: 14px;
+	}
+
+	.catos-list {
+		margin: 25px  -15px;
+		.cato-container {
+			display: block;
+			padding: 15px;
+			.info-container {
+				margin: 10px 0 0;
+			}
+		}
+	}	
+
+	.new-cato-cont {
+		padding: 15px 0;
+	} 
+
+
+}
