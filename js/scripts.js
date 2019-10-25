@@ -208,7 +208,7 @@ function imageTo64(cb) {
 
         } else {
 
-        	console.log("file ext invalid");
+        	//console.log("file ext invalid");
         }     
     }
 }
@@ -231,7 +231,7 @@ function imageTo64(cb) {
 
  	if(name.length > 0) {
  		$(cont).addClass('d-none');
- 		console.log("name ok");
+ 		//console.log("name ok");
  		return true;
 
  	} else {
@@ -240,7 +240,7 @@ function imageTo64(cb) {
 
  		
  		
- 		console.log("name too short");
+ 		//console.log("name too short");
 
  	}
 
@@ -260,16 +260,16 @@ function imageTo64(cb) {
  	}
 
  	if(desc.length < 1) {
- 		console.log("desc too short");
+ 		//console.log("desc too short");
  		$(cont).removeClass('d-none');
  		$(cont).html("Please enter a description for this cato");
  	} else if (desc.length > 300) {
- 		console.log("desc too long");
+ 		//console.log("desc too long");
  		$(cont).removeClass('d-none');
  		$(cont).html("You don't need to say so much about this cato. 300 characters should be enough, human!");
  	} else {
  		$(cont).addClass('d-none');
- 		console.log("desc ok");
+ 		//console.log("desc ok");
  		return true;
  	}
  		
@@ -288,17 +288,17 @@ function imageTo64(cb) {
 
  		if ($(img).attr('src') == undefined) {
 
- 			console.log("no valid image uploaded");
+ 			//console.log("no valid image uploaded");
 	 		cont.removeClass('d-none');
 	 		cont.html("Please upload a picture of your cato!");
 
  		} else if ( img.width != 320 || img.height != 320 ) {
- 			console.log("img size is wrong");
+ 			//console.log("img size is wrong");
 	 		cont.removeClass('d-none');
 	 		cont.html("Wrong picture size, should be 320px x 320px");
  		} else {
  			cont.addClass('d-none');
-	 		console.log("image ok");
+	 		//console.log("image ok");
 	 		return true;
  		}
  	} else if (form == "edit") {
@@ -306,13 +306,13 @@ function imageTo64(cb) {
 
  		if ( $(img).attr('src') != undefined && (img.width != 320 || img.height != 320) ) {
 
-	 		console.log("img size is wrong");
+	 		//console.log("img size is wrong");
 	 		cont.removeClass('d-none');
 	 		cont.html("Wrong picture size, should be 320px x 320px");
 
 	 	} else {
 	 		cont.addClass('d-none');
-	 		console.log("image ok");
+	 		//console.log("image ok");
 	 		return true;
 	 	}
  	}
@@ -328,7 +328,7 @@ function newCatoValidation(name, desc, img) {
 	if (catoNameValidation(name, "new") & catoDescValidation(desc, "new") & catoImgValidation(img, "new") ) {
 		return true;
 	} else {
-		console.log("failed validation, cato not saved");
+		//console.log("failed validation, cato not saved");
 	}
 
 }
@@ -368,17 +368,17 @@ function saveNewCato() {
 		    emptyCatoForm();
 		    showCatos();
 
-		    console.log("new cato saved");
+		    //console.log("new cato saved");
 
 		} else {
 
-			console.log("failed validation");
+			//console.log("failed validation");
 
 		}
 
     } else {
 
-		console.log("nothing happened");
+		//console.log("nothing happened");
 
 	}
 
@@ -403,7 +403,7 @@ function deleteCato(key) {
 
 	} else {
 
-		console.log("nothing happened");
+		//console.log("nothing happened");
 
 	}
 
@@ -534,7 +534,7 @@ function saveEditedCato(key) {
 
 
 		} else {
-			console.log("nothin happened");
+			//console.log("nothin happened");
 		}
 
 	}
