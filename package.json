@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "animate.css": "^3.7.2",
-    "underscore": "^1.9.1",
+    "underscore": "^1.12.1",
     "wow.js": "^1.2.2"
   },
   "devDependencies": {
